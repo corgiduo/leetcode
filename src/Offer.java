@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
 
 /*
 * 剑指Offer
@@ -50,6 +52,25 @@ public class Offer {
             }
         }
         return sb.toString();
+    }
+
+    //06. 从尾到头打印链表
+    public int[] reversePrint(ListNode head) {
+        if (head == null) {
+            return new int[]{};
+        }
+        int len = 0;
+        Deque<Integer> stack = new LinkedList<>();
+        while (head.next != null) {
+            stack.offerFirst(head.val);
+            head = head.next;
+            len++;
+        }
+        int[] ret = new int[len];
+        for (int i = 0; i < len; i++) {
+            ret[i] = stack.pollFirst();
+        }
+        return ret;
     }
 
     //11. 旋转数组的最小数字
