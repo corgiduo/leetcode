@@ -21,14 +21,13 @@ public class Solution {
         }
         for (int i = len - 1; i >= 0; i--) {
             for (int j = 0; j < i; j++) {
-                int left = j;
                 int right = len - i + j;
-                if (s.charAt(left) == s.charAt(right)) {
-                    if (dp[left + 1][right - 1]) {
-                        dp[left][right] = true;
-                        if (right - left + 1 > max) {
-                            max = right - left + 1;
-                            l = left;
+                if (s.charAt(j) == s.charAt(right)) {
+                    if (dp[j + 1][right - 1]) {
+                        dp[j][right] = true;
+                        if (right - j + 1 > max) {
+                            max = right - j + 1;
+                            l = j;
                             r = right;
                         }
                     }
@@ -217,7 +216,7 @@ public class Solution {
         if (root == null) return;
         Deque<TreeNode> stack = new LinkedList<>();
         stack.addFirst(root);
-        TreeNode preNode = null, curNode = null;
+        TreeNode preNode = null, curNode;
         while (!stack.isEmpty()) {
             curNode = stack.pollFirst();
             if (preNode != null) {
@@ -237,7 +236,7 @@ public class Solution {
     //415. 字符串相加
     public String addStrings(String num1, String num2) {
         int i = num1.length() - 1, j = num2.length() - 1, cur = 0;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         while (i >= 0 || j >= 0 || cur > 0) {
             int x = i < 0 ? 0 : num1.charAt(i--) - '0';
             int y = j < 0 ? 0 : num2.charAt(j--) - '0';
@@ -322,8 +321,8 @@ public class Solution {
             return 0;
         }
         if (matrix[0].length == 1) {
-            for (int i = 0; i < matrix.length; i++) {
-                if (matrix[i][0] == '1') {
+            for (char[] chars : matrix) {
+                if (chars[0] == '1') {
                     return 1;
                 }
             }
@@ -333,7 +332,9 @@ public class Solution {
         int[][] dp = new int[row][col];
         int max = 0;
         for (int i = 0; i < col; i++) {
-            if (matrix[0][i] == '1') max = 1;
+            if (matrix[0][i] == '1') {
+                max = 1;
+            }
             dp[0][i] = matrix[0][i] - '0';
         }
         for (int i = 0; i < row; i++) {
@@ -1049,6 +1050,36 @@ public class Solution {
             }
         }
         return Arrays.stream(sell[days - 1]).max().getAsInt();
+    }
+
+    //2. 两数相加
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        if (l1 == null || l2 == null) {
+            return l1 == null ? l2 : l1;
+        }
+        ListNode n1 = l1, n2 = l2;
+        ListNode ret = new ListNode(0);
+        ListNode node = ret;
+        int flag = 0;
+        while (n1 != null || n2 != null) {
+            int val = flag;
+            if (n1 != null) {
+                val += n1.val;
+                n1 = n1.next;
+            }
+            if (n2 != null) {
+                val += n2.val;
+                n2 = n2.next;
+            }
+            flag = val / 10;
+            val %= 10;
+            node.next = new ListNode(val);
+            node = node.next;
+        }
+        if (flag == 1) {
+            node.next = new ListNode(1);
+        }
+        return ret.next;
     }
 
 }
