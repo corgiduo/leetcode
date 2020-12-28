@@ -1,8 +1,25 @@
+import java.util.Arrays;
 
 /*
 * 剑指Offer
 * */
 public class Offer {
+
+    //03. 数组中重复的数字
+    public int findRepeatNumber(int[] nums) {
+        int[] arr = new int[nums.length];
+        Arrays.fill(arr, -1);
+        int val = -1;
+        for (int i = 0; i < nums.length; i++) {
+            val = nums[i];
+            if (arr[val] == -1) {
+                arr[val] = val;
+            } else {
+                break;
+            }
+        }
+        return val;
+    }
 
     //11. 旋转数组的最小数字
     public int minArray(int[] numbers) {
