@@ -1082,4 +1082,30 @@ public class Solution {
         return ret.next;
     }
 
+    //4. 寻找两个正序数组的中位数
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int len = nums1.length + nums2.length;
+        int i = 0, j = 0, cnt = 0;
+        int pre = 0, cur = 0;
+        while (i < nums1.length || j < nums2.length) {
+            if (cnt > len / 2) {
+                break;
+            }
+            pre = cur;
+            if (i < nums1.length && j < nums2.length) {
+                cur = (nums1[i] < nums2[j]) ? nums1[i++] : nums2[j++];
+            } else if (i < nums1.length) {
+                cur = nums1[i++];
+            } else {
+                cur = nums2[j++];
+            }
+            cnt++;
+        }
+        if (len % 2 == 0) {
+            return (pre + cur) / 2.0;
+        } else {
+            return cur;
+        }
+    }
+
 }
