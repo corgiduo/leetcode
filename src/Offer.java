@@ -117,6 +117,19 @@ public class Offer {
 
     }
 
+    //10-1. 斐波那契数列
+    public int fib(int n) {
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        int[] nums = new int[n + 1];
+        nums[0] = 0;
+        nums[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            nums[i] = (nums[i - 2] + nums[i - 1]) % 1000000007;
+        }
+        return nums[n];
+    }
+
     //11. 旋转数组的最小数字
     public int minArray(int[] numbers) {
         if (numbers[0] < numbers[numbers.length - 1]) return numbers[0];
