@@ -92,6 +92,31 @@ public class Offer {
         return root;
     }
 
+    //09. 用两个栈实现队列
+    public class CQueue {
+
+        Deque<Integer> stack1 = new LinkedList<>();
+        Deque<Integer> stack2 = new LinkedList<>();
+
+        public CQueue() {
+
+        }
+
+        public void appendTail(int value) {
+            stack1.offerFirst(value);
+        }
+
+        public int deleteHead() {
+            if (stack2.isEmpty()) {
+                while (!stack1.isEmpty()) {
+                    stack2.offerFirst(stack1.pollFirst());
+                }
+            }
+            return stack2.isEmpty() ? -1 : stack2.pollFirst();
+        }
+
+    }
+
     //11. 旋转数组的最小数字
     public int minArray(int[] numbers) {
         if (numbers[0] < numbers[numbers.length - 1]) return numbers[0];
