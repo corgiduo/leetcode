@@ -21,6 +21,24 @@ public class Offer {
         return val;
     }
 
+    //04. 二维数组中的查找
+    public boolean findNumberIn2DArray(int[][] matrix, int target) {
+        if (matrix.length == 0 || matrix[0].length == 0) {
+            return false;
+        }
+        int x = 0, y = matrix[0].length - 1;
+        while (x < matrix.length && y >= 0) {
+            if (target == matrix[x][y]) {
+                return true;
+            } else if (target > matrix[x][y]) {
+                x++;
+            } else {
+                y--;
+            }
+        }
+        return false;
+    }
+
     //11. 旋转数组的最小数字
     public int minArray(int[] numbers) {
         if (numbers[0] < numbers[numbers.length - 1]) return numbers[0];
