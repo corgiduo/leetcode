@@ -1084,27 +1084,40 @@ public class Solution {
 
     //4. 寻找两个正序数组的中位数
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int len = nums1.length + nums2.length;
-        int i = 0, j = 0, cnt = 0;
-        int pre = 0, cur = 0;
-        while (i < nums1.length || j < nums2.length) {
-            if (cnt > len / 2) {
-                break;
-            }
-            pre = cur;
-            if (i < nums1.length && j < nums2.length) {
-                cur = (nums1[i] < nums2[j]) ? nums1[i++] : nums2[j++];
-            } else if (i < nums1.length) {
-                cur = nums1[i++];
-            } else {
-                cur = nums2[j++];
-            }
-            cnt++;
-        }
-        if (len % 2 == 0) {
-            return (pre + cur) / 2.0;
+        int len1 = nums1.length, len2 = nums2.length;
+        int totalLen = len1 + len2;
+        int mid = totalLen / 2;
+        if (totalLen % 2 == 1) {
+            return getKthElement(nums1, nums2, mid + 1);
         } else {
-            return cur;
+            return (getKthElement(nums1, nums2, mid) + getKthElement(nums1, nums2, mid + 1)) / 2.0;
+        }
+    }
+
+    int getKthElement(int[] nums1, int[] nums2, int k) {
+        int len1 = nums1.length, len2 = nums2.length;
+        int i = 0, j = 0;
+        int ret = 0;
+        while (true) {
+            if (i == len1) {
+                return nums2[j + k - 1];
+            }
+            if (j == len2) {
+                return nums1[i + k - 1];
+            }
+            if (k == 1) {
+                return Math.min(nums1[i], nums2[j]);
+            }
+            int half = k / 2;
+            int index1 = Math.min(i + half, len1) - 1;
+            int index2 = Math.min(j + half, len2) - 1;
+            if (nums1[index1] < nums2[index2]) {
+                k -= index1 - i + 1;
+                i = index1 + 1;
+            } else {
+                k -= index2 - j + 1;
+                j = index2 + 1;
+            }
         }
     }
 
