@@ -73,6 +73,25 @@ public class Offer {
         return ret;
     }
 
+    //07. 重建二叉树
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if(preorder.length == 0 && inorder.length == 0) {
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[0]);
+        int left = 0;
+        while (inorder[left] != preorder[0]) {
+            left++;
+        }
+        int[] lp = Arrays.copyOfRange(preorder, 0, left);
+        int[] li = Arrays.copyOfRange(inorder, 1, left + 1);
+        int[] rp = Arrays.copyOfRange(preorder, left + 1, preorder.length);
+        int[] ri = Arrays.copyOfRange(inorder, left + 1, preorder.length);
+        root.left = buildTree(lp, li);
+        root.right = buildTree(rp, ri);
+        return root;
+    }
+
     //11. 旋转数组的最小数字
     public int minArray(int[] numbers) {
         if (numbers[0] < numbers[numbers.length - 1]) return numbers[0];
