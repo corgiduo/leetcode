@@ -165,4 +165,21 @@ public class Offer {
         return root;
     }
 
+    //330. 按要求补齐数组
+    public int minPatches(int[] nums, int n) {
+        int cnt = 0;
+        long x = 1;
+        int len = nums.length, index = 0;
+        while (x <= n) {
+            if (index < len && nums[index] <= x) {
+                x += nums[index];
+                index++;
+            } else {
+                x *= 2;
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+
 }
