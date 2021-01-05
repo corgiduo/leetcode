@@ -166,37 +166,4 @@ public class Offer {
         return root;
     }
 
-    //330. 按要求补齐数组
-    public int minPatches(int[] nums, int n) {
-        int cnt = 0;
-        long x = 1;
-        int len = nums.length, index = 0;
-        while (x <= n) {
-            if (index < len && nums[index] <= x) {
-                x += nums[index];
-                index++;
-            } else {
-                x *= 2;
-                cnt++;
-            }
-        }
-        return cnt;
-    }
-
-    //1046. 最后一块石头的重量
-    public int lastStoneWeight(int[] stones) {
-        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>((a, b) -> b - a);
-        for (int stone : stones) {
-            priorityQueue.offer(stone);
-        }
-        while (priorityQueue.size() > 1) {
-            int a = priorityQueue.poll();
-            int b = priorityQueue.poll();
-            if (a > b) {
-                priorityQueue.offer(a - b);
-            }
-        }
-        return priorityQueue.isEmpty() ? 0 : priorityQueue.poll();
-    }
-
 }
