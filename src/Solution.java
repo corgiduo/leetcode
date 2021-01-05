@@ -1133,4 +1133,35 @@ public class Solution {
         return arr[n];
     }
 
+    //830. 较大分组的位置
+    public List<List<Integer>> largeGroupPositions(String s) {
+        List<List<Integer>> lists = new LinkedList<>();
+        if (s.length() < 3) return lists;
+        int start = 0, end = 1;
+        char cur = s.charAt(0);
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) != cur) {
+                end = i - 1;
+                if (end - start > 1) {
+                    List<Integer> list = new LinkedList();
+                    list.add(start);
+                    list.add(end);
+                    lists.add(list);
+                }
+                start = i;
+                cur = s.charAt(i);
+            }
+        }
+        if (s.charAt(s.length() - 1) == cur) {
+            end = s.length() - 1;
+            if (end - start > 1) {
+                List<Integer> list = new LinkedList();
+                list.add(start);
+                list.add(end);
+                lists.add(list);
+            }
+        }
+        return lists;
+    }
+
 }
