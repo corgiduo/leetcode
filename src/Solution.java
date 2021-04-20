@@ -1197,4 +1197,24 @@ public class Solution {
         return priorityQueue.isEmpty() ? 0 : priorityQueue.poll();
     }
 
+    //783. 二叉搜索树节点最小距离
+    public int minDiffInBST(TreeNode root) {
+        List<Integer> list = new LinkedList<>();
+        minDiffInBSTBSF(root, list);
+        int min = Integer.MAX_VALUE;
+        for (int i = 1; i < list.size(); i++) {
+            min = Math.min(min, list.get(i) - list.get(i - 1));
+        }
+        return min;
+    }
+
+    public void minDiffInBSTBSF(TreeNode root, List<Integer> list) {
+        if (root == null) {
+            return;
+        }
+        minDiffInBSTBSF(root.left, list);
+        list.add(root.val);
+        minDiffInBSTBSF(root.right, list);
+    }
+
 }
