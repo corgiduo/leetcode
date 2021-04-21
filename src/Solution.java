@@ -1217,4 +1217,34 @@ public class Solution {
         minDiffInBSTBSF(root.right, list);
     }
 
+    //6. Z字形变换
+    public String convert(String s, int numRows) {
+        int len = s.length();
+        if (s.length() == 1 || numRows == 1) return s;
+        char[][] chars = new char[numRows][len / 2 + 1];
+        int row = 0, col = 0;
+        boolean flag = false;
+        for (int i = 0; i < len; i++) {
+            chars[row][col] = s.charAt(i);
+            if (row == numRows - 1 || row == 0) {
+                flag = !flag;
+            }
+            if (flag) {
+                row++;
+            } else {
+                row--;
+                col++;
+            }
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < chars.length; i++) {
+            for (int j = 0; j < chars[0].length; j++) {
+                if (chars[i][j] != '\0') {
+                    sb.append(chars[i][j]);
+                }
+            }
+        }
+        return sb.toString();
+    }
+
 }
