@@ -1260,4 +1260,15 @@ public class Solution {
         return x == n || x == n / 10;
     }
 
+    //1720. 解码异或后的数组
+    public int[] decode(int[] encoded, int first) {
+        if (encoded.length <= 0) return new int[0];
+        int[] ret = new int[encoded.length + 1];
+        ret[0] = first;
+        for (int i = 1; i < ret.length; i++) {
+            ret[i] = ret[i - 1] ^ encoded[i - 1];
+        }
+        return ret;
+    }
+
 }
