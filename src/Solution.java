@@ -1271,4 +1271,31 @@ public class Solution {
         return ret;
     }
 
+    //1738. 找出第K大的异或坐标值
+    public int kthLargestValue(int[][] matrix, int k) {
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int[][] value = new int[row][col];
+        List<Integer> list = new LinkedList<>();
+        value[0][0] = matrix[0][0];
+        list.add(matrix[0][0]);
+        for (int i = 0; i < row; i++) {
+            int l = matrix[i][0];
+            for (int j = 0; j < col; j++) {
+                if (i == 0 && j == 0) continue;
+                if (i == 0) {
+                    value[i][j] = value[i][j - 1] ^ matrix[i][j];
+                } else if (j == 0) {
+                    value[i][j] = value[i - 1][j] ^ matrix[i][j];
+                } else {
+                    value[i][j] = l ^ matrix[i][j] ^ value[i - 1][j];
+                    l ^= matrix[i][j];
+                }
+                list.add(value[i][j]);
+            }
+        }
+        Collections.sort(list);
+        return list.get(row * col - k);
+    }
+
 }
