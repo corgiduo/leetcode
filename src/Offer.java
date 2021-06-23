@@ -156,6 +156,16 @@ public class Offer {
         return 0;
     }
 
+    //15. 二进制中1的个数
+    public int hammingWeight(int n) {
+        int ret = 0;
+        for (int i = 0; i < 32; i++) {
+            ret += n & 1;
+            n = n >>> 1;
+        }
+        return ret;
+    }
+
     //68. 二叉树的最近公共祖先
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || root == p || root == q) return root;
